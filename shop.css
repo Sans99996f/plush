@@ -496,8 +496,11 @@ nav a {
   width: 90%;
   max-width: 600px;
   position: relative;
+
   max-height: 90vh;
   overflow-y: auto;
+
+
 }
 
 .cart-modal-close {
@@ -577,6 +580,7 @@ nav a {
   background: #4d7711;
 }
 
+
 /* Стили для формы оформления заказа */
 .checkout-form {
   margin-top: 20px;
@@ -585,11 +589,19 @@ nav a {
   gap: 15px;
 }
 
+
+/* Стили для формы оформления заказа */
+.checkout-form {
+  margin-top: 20px;
+
+}
+
 .checkout-form h3 {
   font-family: 'Nunito';
   margin-bottom: 15px;
   text-align: center;
 }
+
 
 .checkout-form h4 {
   font-family: 'Nunito';
@@ -597,6 +609,7 @@ nav a {
   font-size: 18px;
   text-align: center;
 }
+
 
 .checkout-form label {
   display: block;
@@ -635,6 +648,9 @@ nav a {
   background: #168596;
 }
 
+
+
+
 /* Временные отладочные стили для пагинации */
 .pagination-wrapper {
   background-color: #f0f0f0 !important;
@@ -661,6 +677,7 @@ nav a {
 
 .pagination button:disabled {
   opacity: 0.7 !important;
+
 }
 
 /* Адаптивные стили для всех устройств */
@@ -919,4 +936,5 @@ nav a {
     font-size: 12px;
     padding: 6px 12px;
   }
+
 }

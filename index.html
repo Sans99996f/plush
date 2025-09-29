@@ -1,4 +1,43 @@
-<!DOCTYPE html>
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -33,7 +72,14 @@
     <div class="maintxt">
       <p class="small">Welcome to our store</p>
       <h1 class="small-txt">Plushes toys<br> From all games</h1>
+<<<<<<< HEAD
       <button id="scrollBtn">Open Catalog</button>
+=======
+
+      <button id="scrollToBottomBtn" >Open Catalog</button>
+
+
+>>>>>>> 8a65a46d1f59581ae905b8fd06251884da67eef0
     </div>
   </section>
 
@@ -48,6 +94,7 @@
         <option value="CBA">Name: Z-A</option>
       </select>
     </div>
+<<<<<<< HEAD
   </div>
 
   <div class="shop-container" id="catalog">
@@ -113,10 +160,74 @@
       <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1" target="_blank">Accessibility</a>
       <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1" target="_blank">Do not sell or share my personal information</a>
     </div>
+=======
+>>>>>>> 8a65a46d1f59581ae905b8fd06251884da67eef0
   </div>
 </footer>
 
 
+<<<<<<< HEAD
+=======
+  <div id="targetSection" class="shop-container">
+
+  <div class="shop-container">
+
+    <aside class="sidebar">
+      <h3 class="filter-title">GAME</h3>
+      <ul>
+        <li><label><input type="checkbox">A Short Hike (1)</label></li>
+        <li><label><input type="checkbox">Ace Attorney (2)</label></li>
+        <li><label><input type="checkbox">ASTRO BOT (2)</label></li>
+        <li><label><input type="checkbox">Baba Is You (1)</label></li>
+        <li><label><input type="checkbox">Banjo-Kazooie (2)</label></li>
+        <li><label><input type="checkbox">BloodBorne (1)</label></li>
+        <li><label><input type="checkbox">Brotato (1)</label></li>
+        <li><label><input type="checkbox">Bugsnax (5)</label></li>
+        <li><label><input type="checkbox">Celeste (1)</label></li>
+        <li><label><input type="checkbox">Conker (1)</label></li>
+        <li><label><input type="checkbox">Dark Souls (1)</label></li>
+        <li><label><input type="checkbox">ENA (1)</label></li>
+      </ul>
+    </aside>
+    <main class="products">
+      <!-- Товары рендерятся через JavaScript -->
+    </main>
+    <div class="pagination-wrapper">
+      <p class="pagination-info">Showing 1–18 of 19</p>
+      <div class="pagination"></div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-section">
+        <h3 class="text-about">ABOUT SANT STORE</h3>
+        <p class="text-about1">
+          This is a study project created to practice web development skills
+          and to get a good grade.
+        </p>
+        <button class="footer-btn">ABOUT US</button>
+      </div>
+      <div class="footer-section">
+        <h3 class="help-text">HELP</h3>
+        <p class="help-text1">
+          Need help with returns, exchanges, or other issues?  
+          Check our <a href="#">FAQ</a> for answers to common questions.
+        </p>
+        <button class="footer-btn">SUPPORT / FAQ</button>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Copyright © 2025 SANT Store</p>
+      <div class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Accessibility</a>
+        <a href="#">Do not sell or share my personal information</a>
+      </div>
+    </div>
+  </footer>
+
+>>>>>>> 8a65a46d1f59581ae905b8fd06251884da67eef0
   <!-- Модальное окно корзины -->
   <div class="cart-modal" style="display: none;">
     <div class="cart-modal-content">
@@ -125,6 +236,10 @@
       <div class="cart-items"></div>
       <div class="cart-total">Total: $0</div>
       <button class="cart-checkout">Checkout</button>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8a65a46d1f59581ae905b8fd06251884da67eef0
       <div class="checkout-form" style="display: none;">
         <h3>Checkout Form</h3>
         <form id="checkout-form">
@@ -136,6 +251,7 @@
           <input type="tel" id="phone" name="phone" required>
           <label for="address">Address:</label>
           <textarea id="address" name="address" required></textarea>
+<<<<<<< HEAD
           <h4>Payment Details</h4>
           <label for="card-number">Card Number:</label>
           <input type="text" id="card-number" name="card-number" placeholder="1234 5678 9012 3456" required>
@@ -153,6 +269,15 @@
     document.getElementById("catalog").scrollIntoView({ behavior: "smooth" });
   });
 </script>
+=======
+          <button type="submit" class="form-submit">Submit Order</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+>>>>>>> 8a65a46d1f59581ae905b8fd06251884da67eef0
   <script src="shop.js"></script>
 </body>
 </html>

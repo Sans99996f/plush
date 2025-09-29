@@ -98,6 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+
   // ====== Сброс состояния модального окна ======
   function resetModalState() {
     if (cartItemsContainer) cartItemsContainer.style.display = 'block';
@@ -107,6 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (checkoutForm) checkoutForm.reset();
     renderCart(); // Обновляем список товаров в корзине
   }
+
 
   // ====== Управление корзиной ======
   function addToCart(product) {
@@ -158,16 +160,28 @@ document.addEventListener('DOMContentLoaded', () => {
   if (cartButton && cartModal && cartModalClose) {
     cartButton.addEventListener('click', () => {
       cartModal.style.display = 'flex';
+
       resetModalState(); // Сбрасываем состояние при открытии
     });
     cartModalClose.addEventListener('click', () => {
       cartModal.style.display = 'none';
       resetModalState(); // Сбрасываем состояние при закрытии
+
+      renderCart();
+      if (checkoutFormContainer) {
+        checkoutFormContainer.style.display = 'none'; // Скрываем форму при открытии корзины
+      }
+    });
+    cartModalClose.addEventListener('click', () => {
+      cartModal.style.display = 'none';
+
     });
     cartModal.addEventListener('click', (e) => {
       if (e.target === cartModal) {
         cartModal.style.display = 'none';
+
         resetModalState(); // Сбрасываем состояние при клике вне модального окна
+
       }
     });
   } else {
@@ -200,21 +214,25 @@ document.addEventListener('DOMContentLoaded', () => {
           phone: formData.get('phone'),
           address: formData.get('address'),
         },
+
         payment: {
           cardNumber: formData.get('card-number'),
           expiryDate: formData.get('expiry-date'),
           cvv: formData.get('cvv'),
         },
+
         items: cart,
         total: cart.reduce((sum, item) => sum + item.price, 0),
         timestamp: new Date().toISOString(),
       };
+
 
       // Простая валидация (добавлена для проверки)
       if (!orderData.payment.cardNumber || !orderData.payment.expiryDate || !orderData.payment.cvv) {
         alert('Please fill in all payment details.');
         return;
       }
+
 
       // Создание JSON-файла для скачивания
       const orderJson = JSON.stringify(orderData, null, 2);
@@ -233,8 +251,13 @@ document.addEventListener('DOMContentLoaded', () => {
       // Очистка корзины и сброс формы
       cart = [];
       updateCart();
+
       resetModalState(); // Сбрасываем состояние после отправки
       cartModal.style.display = 'none'; // Закрываем модальное окно
+
+      checkoutForm.reset();
+      cartModal.style.display = 'none';
+
       alert('Order submitted successfully! Check your downloads for order details.');
     });
   }
@@ -323,6 +346,8 @@ document.addEventListener('DOMContentLoaded', () => {
   } else {
     console.warn("shop.js: чекбоксов для фильтрации не найдено");
   }
+
+
 
 
 
