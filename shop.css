@@ -937,4 +937,23 @@ nav a {
     padding: 6px 12px;
   }
 
+.cart-item-quantity {
+  font-family: 'Nunito', sans-serif;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 60px;
+  text-align: center;
+}
+
+.cart-item-total {
+  font-family: 'Nunito', sans-serif;
+  font-weight: bold;
+  color: #8dc63f;
+  margin-left: 10px;
+}
+
+
+
 }

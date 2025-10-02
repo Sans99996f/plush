@@ -49,7 +49,20 @@
   <div class="topbar">
     <div class="container">
       <button class="phone"><span1>Call Us: +7 747 777 1199</span1></button>
-      <button class="email"><span2>Email: santsplushstore@gmail.com</span2></button>
+      <button class="email" onclick="copyEmail()">Email: santsplushstore@gmail.com</button>
+
+<script>
+  function copyEmail() {
+    const email = "santsplushstore@gmail.com";
+    navigator.clipboard.writeText(email)
+      .then(() => {
+        alert("Email скопирован: " + email);
+      })
+      .catch(err => {
+        console.error("Ошибка копирования: ", err);
+      });
+  }
+</script>
       <div class="social">
         <a href="#"></a>
         <a href="#"></a>
